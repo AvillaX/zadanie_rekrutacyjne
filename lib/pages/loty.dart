@@ -22,21 +22,6 @@ class _LotyState extends State<Loty> {
     super.initState();
   }
 
-//TODO: Update listy przez przeciągnięcie
-
-  Future refresh() async {
-    // final url = Uri.parse('https://api.spaceflightnewsapi.net/v3/articles');
-    // final response = await http.get(url);
-    // if (response.statusCode == 200) {
-    //   final List<ArticlesModel> newItems = json.decode(response.body);
-    //   setState(() {
-    //     //ustawienie listy articles globalnie zwraca podwójnie liste artykułów
-    //     //articles = newItems;
-    //   });
-    // }
-    Future<List<ArticlesModel>> newItems = repository.getArticles();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +39,7 @@ class _LotyState extends State<Loty> {
                   );
                 } else {
                   return RefreshIndicator(
-                    onRefresh: refresh,
+                    onRefresh: () => repository.getArticles(),
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
